@@ -6,8 +6,7 @@ const cors = require('cors');
 const logger = require('morgan');
 const knex = require('./db/knex');
 
-const index = require('./routes/indexRoutes');
-const todos = require('./routes/todosRoutes');
+const video = require('./routes/video');
 
 const app = express();
 
@@ -19,8 +18,7 @@ app.use(cors());
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use('/', index);
-app.use('/todos', todos);
+app.use('/video', video);
 
 app.listen(port, function() {
   console.log("listening on port: ", port);
