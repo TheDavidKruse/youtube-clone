@@ -1,26 +1,31 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import { Container, Sidebar } from 'semantic-ui-react';
+import SideNav from './components/Sidebar/Sidebar';
+import Header from './components/Header/Header';
 
 class App extends Component {
+  state={
+    visible:false
+  }
+
+  toggleNav = () => {
+    this.setState({visible: !this.state.visible})
+  }
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Router>
+        <Container style={{backgroundColor: "", minHeight:"100vh", minWidth:"100vw"}}>
+        <Header toggleNav={this.toggleNav}/>
+          <Sidebar.Pushable>
+            <SideNav visible={this.state.visible}/>
+            <Sidebar.Pusher>
+              <Route exact to="/" component={Home}/>
+            </Sidebar.Pusher>
+          </Sidebar.Pushable>
+        </Container>
+      </Router>
     );
   }
 }
